@@ -3,6 +3,7 @@ NAME				=	cub3D
 CC 					= 	gcc
 CFLAGS 				= 	-Wall -Werror -Wextra
 SRC_DIR				=	src
+INC_DIR				=	$(LIB_MINILIBX)/include/MLX42
 LIB_FT				=	libft
 #SOURCES				=	$(LIB_GNL)/get_next_line.c 
 MAIN_SOURCES		= 	$(SRC_DIR)/main.c #$(SOURCES)
@@ -21,8 +22,7 @@ $(NAME): $(OBJS)
 	make -C $(LIB_FT)
 	@echo "\n\n$(GREEN)Compiling minilibx$(RESET)\n\n"
 	make -C $(LIB_MINILIBX)
-	cp $(LIB_MINILIBX_NAME) .
-	$(CC) $(CFLAGS)   $(OBJS) $(CFLAGS_MINILIBX) $(LIB_FT)/libft.a  libmlx42.a -o $(NAME)
+	$(CC) $(CFLAGS)   $(OBJS) $(LIB_FT)/libft.a   $(LIB_MINILIBX_NAME) $(CFLAGS_MINILIBX) -I $(INC_DIR) -o $(NAME)
 
 all: $(NAME)
 

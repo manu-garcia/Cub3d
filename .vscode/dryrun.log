@@ -1,11 +1,5 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory '/home/caquinta/Desktop/Cub3d'
-gcc -Wall -Werror -Wextra   -c -o src/main.o src/main.c
-echo "\n\n"\\x1b[32m"Compiling libft"\\x1b[37m"\n\n"
-make -C libft
-echo "\n\n"\\x1b[32m"Compiling minilibx"\\x1b[37m"\n\n"
-make -C MLX42
-cp ./MLX42/libmlx42.a .
-gcc -Wall -Werror -Wextra   src/main.o -ldl -lglfw -pthread -lm libft/libft.a  libmlx42.a -o cub3D
+make: 'cub3D' is up to date.
 make: Leaving directory '/home/caquinta/Desktop/Cub3d'
  

@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'src/main.o', needed by 'cub3D'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'src/main.o', needed by 'cub3D'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Oct 26 09:03:06 2022
+# Make data base, printed on Wed Oct 26 13:34:44 2022
 
 # Variables
 
@@ -56,7 +54,7 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
 %F = $(notdir $%)
-# makefile (from 'makefile', line 11)
+# makefile (from 'makefile', line 12)
 CFLAGS_MINILIBX = -ldl -lglfw -pthread -lm
 # environment
 VSCODE_CODE_CACHE_PATH = /home/caquinta/.config/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
@@ -72,10 +70,12 @@ XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.NBNOU1
 GNOME_TERMINAL_SERVICE = :1.118
 # makefile
 MAKEFLAGS = pqrR
-# makefile (from 'makefile', line 12)
+# makefile (from 'makefile', line 13)
 LIB_MINILIBX_NAME = ./MLX42/libmlx42.a
 # makefile
 CURDIR := /home/caquinta/Desktop/Cub3d
+# makefile (from 'makefile', line 6)
+INC_DIR = $(LIB_MINILIBX)/include/MLX42
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
@@ -122,7 +122,7 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
-# makefile (from 'makefile', line 9)
+# makefile (from 'makefile', line 10)
 OBJS = $(MAIN_SOURCES:.c=.o)
 # environment
 GNOME_DESKTOP_SESSION_ID = this-is-deprecated
@@ -146,7 +146,7 @@ SNAP_COOKIE = A-bXWZECqIGwIyFrFAGPAuknj0Hz6UJVK1NvyQlcc3YjWe5wF4s4
 PATH = /home/caquinta/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
 # default
 MAKEFILES := 
-# makefile (from 'makefile', line 8)
+# makefile (from 'makefile', line 9)
 MAIN_SOURCES = $(SRC_DIR)/main.c 
 # environment
 LC_MONETARY = es_ES.UTF-8
@@ -154,7 +154,7 @@ LC_MONETARY = es_ES.UTF-8
 ^F = $(notdir $^)
 # environment
 SNAP_USER_COMMON = /home/caquinta/snap/code/common
-# makefile (from 'makefile', line 16)
+# makefile (from 'makefile', line 17)
 YELLOW = "\\x1b[33m"
 # environment
 LC_TIME = es_ES.UTF-8
@@ -166,7 +166,7 @@ SNAP_REVISION = 111
 SNAP_REAL_HOME = /home/caquinta
 # environment
 USERNAME = caquinta
-# makefile (from 'makefile', line 14)
+# makefile (from 'makefile', line 15)
 GREEN = "\\x1b[32m"
 # environment
 GNOME_SETUP_DISPLAY = :1
@@ -190,7 +190,7 @@ DESKTOP_SESSION = ubuntu
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
-# makefile (from 'makefile', line 10)
+# makefile (from 'makefile', line 11)
 LIB_MINILIBX = MLX42
 # environment
 LOGNAME = caquinta
@@ -200,7 +200,7 @@ SNAP_ARCH = amd64
 .DEFAULT_GOAL := cub3D
 # environment
 SYSTEMD_EXEC_PID = 1957
-# makefile (from 'makefile', line 15)
+# makefile (from 'makefile', line 16)
 RED = "\\x1b[31m"
 # environment
 DISPLAY = :0
@@ -216,7 +216,7 @@ SNAP_DATA = /var/snap/code/111
 SNAP_CONTEXT = A-bXWZECqIGwIyFrFAGPAuknj0Hz6UJVK1NvyQlcc3YjWe5wF4s4
 # environment
 LC_MEASUREMENT = es_ES.UTF-8
-# makefile (from 'makefile', line 17)
+# makefile (from 'makefile', line 18)
 RESET = "\\x1b[37m"
 # environment
 LC_PAPER = es_ES.UTF-8
@@ -260,7 +260,7 @@ SUFFIXES :=
 VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# makefile (from 'makefile', line 6)
+# makefile (from 'makefile', line 7)
 LIB_FT = libft
 # environment
 VTE_VERSION = 6800
@@ -282,7 +282,7 @@ LC_IDENTIFICATION = es_ES.UTF-8
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=134/1024=13%, Rehash=0, Collisions=11/169=7%
+# Load=135/1024=13%, Rehash=0, Collisions=11/170=6%
 
 # Pattern-specific Variable Values
 
@@ -290,9 +290,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2054, inode 4460730): 8 files, no impossibilities.
+# . (device 2054, inode 4460730): 9 files, no impossibilities.
 
-# 8 files, no impossibilities in 1 directories.
+# 9 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -315,8 +315,9 @@ re: fclean all
 # Not a target:
 src/main.o:
 #  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-10-26 13:26:30.4808682
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 .DEFAULT:
@@ -329,7 +330,8 @@ all: cub3D
 #  Command line target.
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Successfully updated.
 
 fclean: clean
 #  Implicit rule search has not been done.
@@ -342,21 +344,21 @@ fclean: clean
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-26 08:57:22.576708151
+#  Last modified 2022-10-26 13:34:24.479536072
 #  File has been updated.
 #  Successfully updated.
 
 cub3D: src/main.o
 #  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'makefile', line 20):
+#  Last modified 2022-10-26 13:34:25.851532148
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 21):
 	@echo "\n\n$(GREEN)Compiling libft$(RESET)\n\n"
 	make -C $(LIB_FT)
 	@echo "\n\n$(GREEN)Compiling minilibx$(RESET)\n\n"
 	make -C $(LIB_MINILIBX)
-	cp $(LIB_MINILIBX_NAME) .
-	$(CC) $(CFLAGS)   $(OBJS) $(CFLAGS_MINILIBX) $(LIB_FT)/libft.a  libmlx42.a -o $(NAME)
+	$(CC) $(CFLAGS)   $(OBJS) $(LIB_FT)/libft.a   $(LIB_MINILIBX_NAME) $(CFLAGS_MINILIBX) -I $(INC_DIR) -o $(NAME)
 
 .PHONY: all
 #  Implicit rule search has not been done.
@@ -374,9 +376,9 @@ cub3D: src/main.o
 # strcache buffers: 1 (0) / strings = 19 / storage = 138 B / avg = 7 B
 # current buf: size = 8162 B / used = 138 B / count = 19 / avg = 7 B
 
-# strcache performance: lookups = 35 / hit rate = 45%
+# strcache performance: lookups = 36 / hit rate = 47%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=0/35=0%
-# Finished Make data base on Wed Oct 26 09:03:06 2022
+# Load=19/8192=0%, Rehash=0, Collisions=0/36=0%
+# Finished Make data base on Wed Oct 26 13:34:44 2022
 
  
