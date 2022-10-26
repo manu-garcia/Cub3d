@@ -1,4 +1,4 @@
-//Create a main.c file, include MLX42/MLX42.h, compile with -ldl -lglfw (or -lglfw3) -pthread -lm, make sure to also do -I <include_path>.
+//gcc main.c ./MLX42/libmlx42.a -ldl -lglfw -pthread -lm -I ./MLX42/include
 
 
 
