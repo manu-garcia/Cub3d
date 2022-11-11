@@ -6,12 +6,13 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:35 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:24:37 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/11 13:52:24 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
+#include "array.h"
 #include "libft.h"
 
 int	check_extension(char *path, char *extension)
@@ -21,8 +22,13 @@ int	check_extension(char *path, char *extension)
 	int		same_extension;
 
 	path_split = ft_split(path, '.');
-	if (!path_split || !path_split[0])
+	if (!path_split)
 		return (0);
+	if (!path_split[0])
+	{
+		free_array(path_split);
+		return (0);
+	}
 	i = 0;
 	same_extension = 0;
 	while (path_split[i])
@@ -32,9 +38,8 @@ int	check_extension(char *path, char *extension)
 			if (!ft_strncmp(path_split[1], extension, ft_strlen(extension)))
 				same_extension = 1;
 		}
-		free(path_split[i]);
 		i++;
 	}
-	free(path_split);
+	free_array(path_split);
 	return (same_extension);
 }
