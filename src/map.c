@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:24 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:25:26 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/14 20:39:03 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "libft.h"
+#include "array.h"
+#include "array_display.h"
+#include "error.h"
 #include "ft_printf.h"
 #include "get_next_line_bonus.h"
-#include "state.h"
-#include "error.h"
 #include "map.h"
+#include "libft.h"
+#include "state.h"
 
-static char	*load_map_string(t_state *state, int fd)
+static char	*load_map_file(t_state *state, int fd)
 {
 	char	*str_map;
 	char	*line;
@@ -50,6 +52,148 @@ static char	*load_map_string(t_state *state, int fd)
 	return (str_map);
 }
 
+static char	*get_last_part_in_line(char *line)
+{
+	char	**parts;
+	char	*last_part;
+	int		len;
+
+	parts = ft_split(line, ' ');
+	len = count_str_in_array(parts);
+	if (!len)
+		last_part = ft_strdup("");
+	else
+		last_part = ft_strdup(parts[len - 1]);
+	free_array(parts);
+	return (last_part);
+}
+
+static char	*get_map_value(char **lines, char *key)
+{
+	int		count;
+	char	*line;
+	char	*value;
+
+	value = NULL;
+	if (!lines || !count_str_in_array(lines))
+		return (value);
+	count = 0;
+	while (!value && lines && lines[count])
+	{
+		line = ft_strtrim(lines[count], " ");
+		if (line)
+		{
+			if (!ft_strncmp(line, key, ft_strlen(key)))
+				value = get_last_part_in_line(line);
+			free(line);
+		}
+		count++;
+	}
+	return (value);
+}
+
+static int	is_first_grid_line(char *line)
+{
+	int		is_first;
+	char	*aux;
+
+	line = ft_strtrim(line, " ");
+	if (!line)
+		return (0);
+	if (!ft_strlen(line))
+	{
+		free(line);
+		return (0);
+	}
+	is_first = 1;
+	aux = line;
+	while (aux && *aux)
+	{
+		if (*aux != TILE_WALL && *aux != ' ')
+		{
+			is_first = 0;
+			break ;
+		}
+		aux++;
+	}
+	if (line)
+		free(line);
+	return (is_first);
+}
+
+static char	*sanitize_map_line(char *line)
+{
+	char	*aux;
+	char	*sanitized;
+
+	if (!ft_strlen(line))
+		return (NULL);
+	sanitized = ft_strdup(line);
+	aux = sanitized;
+	while (line && *line)
+	{
+		if (*line != ' ')
+		{
+			*aux = *line;
+			aux++;
+		}
+		line++;
+	}
+	*aux = '\0';
+	return (sanitized);
+}
+
+static char	**get_map_grid(char **lines)
+{
+	int		i;
+	char	**grid;
+	char	*aux;
+
+	grid = NULL;
+	i = 0;
+	while (lines && !is_first_grid_line(lines[i]))
+		i++;
+	while (lines && lines[i])
+	{
+		aux = sanitize_map_line(lines[i]);
+		if (aux)
+		{
+			grid = add_str_to_array(grid, aux);
+			free(aux);
+		}
+		i++;
+	}
+	return (grid);
+}
+
+static void	map_display(t_map *map)
+{
+	ft_printf("NO: %s\n", map->texture_no_path);
+	ft_printf("SO: %s\n", map->texture_so_path);
+	ft_printf("WE: %s\n", map->texture_we_path);
+	ft_printf("EA: %s\n", map->texture_ea_path);
+	ft_printf("F: %s\n", map->f);
+	ft_printf("C: %s\n", map->c);
+	ft_printf("The map grid:\n\n");
+	array_display(map->grid);
+}
+
+static void	load_map_sections(t_state *state, char *str_map)
+{
+	char	**lines;
+
+	lines = ft_split(str_map, '\n');
+	state->map.texture_no_path = get_map_value(lines, "NO ");
+	state->map.texture_so_path = get_map_value(lines, "SO ");
+	state->map.texture_we_path = get_map_value(lines, "WE ");
+	state->map.texture_ea_path = get_map_value(lines, "EA ");
+	state->map.f = get_map_value(lines, "F ");
+	state->map.c = get_map_value(lines, "C ");
+	state->map.grid = get_map_grid(lines);
+	map_display(&state->map);
+	free_array(lines);
+}
+
 void	load_map(t_state *state, char *file_name)
 {
 	char	*str_map;
@@ -61,33 +205,34 @@ void	load_map(t_state *state, char *file_name)
 		ft_printf("Error\nMap file does not exist: (%s)\n", file_name);
 		exit_with_error(state);
 	}
-	str_map = load_map_string(state, fd);
+	str_map = load_map_file(state, fd);
 	close(fd);
 	if (!str_map)
 	{
 		ft_printf("Error\nMap file is invalid: (%s)\n", file_name);
 		exit_with_error(state);
 	}
-	state->map.grid = ft_split(str_map, '\n');
+	load_map_sections(state, str_map);
 	free(str_map);
 }
 
 void	free_map(t_state *state)
 {
-	int		i;
-
+	if (state->map.texture_no_path)
+		free(state->map.texture_no_path);
+	if (state->map.texture_so_path)
+		free(state->map.texture_so_path);
+	if (state->map.texture_we_path)
+		free(state->map.texture_we_path);
+	if (state->map.texture_ea_path)
+		free(state->map.texture_ea_path);
+	if (state->map.f)
+		free(state->map.f);
+	if (state->map.c)
+		free(state->map.c);
 	if (!state->map.grid)
 		return ;
-	i = 0;
-	while (state->map.grid[i])
-	{
-		free(state->map.grid[i]);
-		i++;
-	}
-	free(state->map.grid);
-	state->map.grid = NULL;
-	state->map.width = 0;
-	state->map.height = 0;
+	free_array(state->map.grid);
 }
 
 void	set_tile(t_state *state, t_tile tile, int x, int y)
