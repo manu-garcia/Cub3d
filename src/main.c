@@ -25,8 +25,8 @@ long	get_time(void)
 	long			milliseconds;
 
 	gettimeofday(&tp, NULL);
-	milliseconds = tp.tv_sec * 1000;
-	milliseconds += tp.tv_usec / 1000;
+	milliseconds = tp.tv_sec;
+	milliseconds += tp.tv_usec;
 	return (milliseconds);
 }
 int global;
@@ -124,8 +124,6 @@ int draw_map(t_data *img)
       //what direction to step in x or y-direction (either +1 or -1)
       int stepX;
       int stepY;
-
-    printf("llega %d\n",x);
       int hit = 0; //was there a wall hit?
       int side; //was a NS or a EW wall hit?
       if (rayDirX < 0)
@@ -373,7 +371,7 @@ int	main(void)
   }
   img.Oldtime = img.Time;
     img.Time = get_time();
-    double frameTime = (img.Time - img.Oldtime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+    double frameTime = (img.Time - img.Oldtime); //frameTime is the time this frame has taken, in seconds
     //print(1.0 / frameTime); //FPS counter
     img.moveSpeed = frameTime * 5.0; //the constant value is in squares/second
     img.rotSpeed = frameTime * 3.0; //the constant value is in radians/second
