@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:07 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:25:09 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 21:07:05 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include "map.h"
 #include "mlx.h"
 #include "state.h"
+
+int	carlos_main(t_state *state);
 
 static void	init_hooks(t_state *state)
 {
@@ -46,6 +48,7 @@ int	main(int argc, char *argv[])
 	}
 	if (!init_state(&state, argv[1]))
 		exit_with_error(&state);
+	carlos_main(&state);
 	init_hooks(&state);
 	mlx_loop(state.mlx);
 	return (exit_without_error(&state));

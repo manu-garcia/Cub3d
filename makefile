@@ -6,6 +6,7 @@ INCLUDES_DIR		= 	includes
 
 SOURCES				= 	$(SRC_DIR)/array.c \
 						$(SRC_DIR)/array_display.c \
+						$(SRC_DIR)/main.c \
 						$(SRC_DIR)/check_extension.c \
 						$(SRC_DIR)/error.c \
 						$(SRC_DIR)/events.c \
@@ -14,7 +15,7 @@ SOURCES				= 	$(SRC_DIR)/array.c \
 						$(SRC_DIR)/map.c \
 						$(SRC_DIR)/map_validation.c \
 						$(SRC_DIR)/state.c
-MAIN_SOURCES		= 	$(SRC_DIR)/main.c $(SOURCES)
+MAIN_SOURCES		= 	$(SRC_DIR)/main_mac.c $(SOURCES)
 TEST_SOURCES		= 	$(SRC_DIR)/tests.c $(SOURCES)
 OBJS				= 	$(MAIN_SOURCES:.c=.o)
 TESTS_OBJS			= 	$(TEST_SOURCES:.c=.o)

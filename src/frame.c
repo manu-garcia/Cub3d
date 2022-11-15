@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:59 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:27:02 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 21:07:01 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include "map.h"
 // #include "collision.h"
 // #include "monster.h"
+
+int draw_map(t_state *state);
 
 void	update_frame(t_state *state)
 {
@@ -39,6 +41,8 @@ void	update_frame(t_state *state)
 		// 	state->monster_last_axis_move = 1;
 		// 	move_monster_horizontally(state);
 		// }
+		// printf("draw_map\n");
+		draw_map(state);
 	}
 }
 

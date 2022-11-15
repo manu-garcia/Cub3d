@@ -12,13 +12,15 @@
 #include "mlx.h"
  #include <sys/time.h>
  
-
+#include "state.h"
 
 
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 1920
-#define screenHeight 1080
+
+// Movidos a state.h
+// #define screenWidth 1920
+// #define screenHeight 1080
 long	get_time(void)
 {
 	struct timeval	tp;
@@ -64,25 +66,25 @@ int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-  int posX;
-  int posY;
-  int dirY;
-  int dirX;
-  double moveSpeed;
-  double rotSpeed;
-  double planeX;
-  double planeY;
-  void *mlx1;
-  void *mlx1_win;
-  double Oldtime;
-  double Time;
-}				t_data;
+// typedef struct	s_data {
+// 	void	*img;
+// 	char	*addr;
+// 	int		bits_per_pixel;
+// 	int		line_length;
+// 	int		endian;
+//   int posX;
+//   int posY;
+//   int dirY;
+//   int dirX;
+//   double moveSpeed;
+//   double rotSpeed;
+//   double planeX;
+//   double planeY;
+//   void *mlx1;
+//   void *mlx1_win;
+//   double Oldtime;
+//   double Time;
+// }				t_data;
  void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -92,11 +94,14 @@ typedef struct	s_data {
 } 
  void	*g_img;
 
-int draw_map(t_data *img)
+int draw_map(t_state *state)
 {
+  t_data *img;
+
+  img = &state->img;
    printf("llega\n");
-  mlx_destroy_image(img->mlx1, img->img);
-  img->img = mlx_new_image(img->mlx1, screenWidth,  screenHeight );
+  mlx_destroy_image(state->mlx, img->img);
+  img->img = mlx_new_image(state->mlx, screenWidth,  screenHeight );
   img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
 								&img->endian);
   int x = 0;
@@ -201,14 +206,17 @@ int draw_map(t_data *img)
     //print(1.0 / frameTime); //FPS counter
     img->moveSpeed = frameTime * 5.0; //the constant value is in squares/second
     img->rotSpeed = frameTime * 3.0; //the constant value is in radians/second
-  mlx_put_image_to_window(img->mlx1, img->mlx1_win, img->img, 0, 0);
+  mlx_put_image_to_window(state->mlx, state->window, img->img, 0, 0);
   return(0);
 }
 
- int	key_hook(int keycode, t_data *img)
+ int	key_hook(int keycode, t_state *state)
 {
+  t_data *img;
+
+  img = &state->img;
   
-  
+  printf("Key code pressed: (%d)\n", keycode);
 if (keycode == 12)
     {
       if(worldMap[(int)(img->posX + (img->dirX * img->moveSpeed))][img->posY] == 1) img->posX += img->dirX * img->moveSpeed;
@@ -243,7 +251,7 @@ if (keycode == 12)
       img->planeY = oldPlaneX * sin(img->rotSpeed) + img->planeY * cos(img->rotSpeed);
     }
      
-    draw_map(img);
+    // draw_map(state);
 	return (0);
 }
 
@@ -251,26 +259,26 @@ if (keycode == 12)
 
  
 
-int	main(void)
+int	carlos_main(t_state *state)
 {
 	//void	*mlx;
- 
-  t_data img;
+  t_data *img;
 
+  img = &state->img;
   int x = 0;
-	img.mlx1 = mlx_init();
-	if (!img.mlx1)
-		exit(EXIT_FAILURE);
+	// img.mlx1 = mlx_init();
+	// if (!img.mlx1)
+		// exit(EXIT_FAILURE);
 	//mlx_loop(mlx);
   
-  img.mlx1_win = mlx_new_window(img.mlx1, screenWidth,  screenHeight , "Hello world!");
-	img.img = mlx_new_image(img.mlx1, screenWidth,  screenHeight );
-  img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
+  // img.mlx1_win = mlx_new_window(img.mlx1, screenWidth,  screenHeight , "Hello world!");
+	img->img = mlx_new_image(state->mlx, screenWidth,  screenHeight );
+  img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length,
+								&img->endian);
  
- img.posX = 8, img.posY = 8;  //x and y start position
-  img.dirX = -1, img.dirY = 1; //initial direction vector
-  img.planeX = 0, img.planeY = 0.66; //the 2d raycaster version of camera plane
+ img->posX = 8, img->posY = 8;  //x and y start position
+  img->dirX = -1, img->dirY = 1; //initial direction vector
+  img->planeX = 0, img->planeY = 0.66; //the 2d raycaster version of camera plane
 //double time = 0; //time of current frame
   //double oldTime = 0; //time of previous frame
 
@@ -279,12 +287,12 @@ int	main(void)
 	{
       //calculate ray position and direction
       double cameraX = 2 * x /screenWidth - 1; //x-coordinate in camera space
-      double rayDirX = img.dirX + img.planeX * cameraX;
-      double rayDirY = img.dirY + img.planeY * cameraX;
+      double rayDirX = img->dirX + img->planeX * cameraX;
+      double rayDirY = img->dirY + img->planeY * cameraX;
 
       //which box of the map we're in
-      int mapX = img.posX;
-      int mapY = img.posY;
+      int mapX = img->posX;
+      int mapY = img->posY;
 
       //length of ray from current position to next x or y-side
       double sideDistX;
@@ -304,22 +312,22 @@ int	main(void)
       if (rayDirX < 0)
       {
         stepX = -1;
-        sideDistX = (img.posX - mapX) * deltaDistX;
+        sideDistX = (img->posX - mapX) * deltaDistX;
       }
       else
       {
         stepX = 1;
-        sideDistX = (mapX + 1.0 - img.posX) * deltaDistX;
+        sideDistX = (mapX + 1.0 - img->posX) * deltaDistX;
       }
       if (rayDirY < 0)
       {
         stepY = -1;
-        sideDistY = (img.posY - mapY) * deltaDistY;
+        sideDistY = (img->posY - mapY) * deltaDistY;
       }
       else
       {
         stepY = 1;
-        sideDistY = (mapY + 1.0 - img.posY) * deltaDistY;
+        sideDistY = (mapY + 1.0 - img->posY) * deltaDistY;
       }
       //perform DDA
       while (hit == 0)
@@ -364,26 +372,25 @@ int	main(void)
         while(drawStart<drawEnd)
           {
            
-            my_mlx_pixel_put(&img,  x, drawStart, color );
+            my_mlx_pixel_put(img,  x, drawStart, color );
             drawStart++;
           }      
 	    x++;
   }
-  img.Oldtime = img.Time;
-    img.Time = get_time();
-    double frameTime = (img.Time - img.Oldtime); //frameTime is the time this frame has taken, in seconds
+  img->Oldtime = img->Time;
+    img->Time = get_time();
+    double frameTime = (img->Time - img->Oldtime); //frameTime is the time this frame has taken, in seconds
     //print(1.0 / frameTime); //FPS counter
-    img.moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-    img.rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+    img->moveSpeed = frameTime * 5.0; //the constant value is in squares/second
+    img->rotSpeed = frameTime * 3.0; //the constant value is in radians/second
 
   
-  mlx_put_image_to_window(img.mlx1, img.mlx1_win, img.img, 0, 0);
+  mlx_put_image_to_window(state->mlx, state->window, img->img, 0, 0);
  
-  mlx_key_hook(img.mlx1_win, key_hook, &img);
+  // mlx_key_hook(state->window, key_hook, state);
   
-	mlx_loop(img.mlx1);
-	 
-  	 
+	// mlx_loop(img.mlx1);
+  return (1);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:15 by manu              #+#    #+#             */
-/*   Updated: 2022/11/15 19:13:44 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 21:07:12 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static int	is_valid_wall(char *row)
 
 static int	is_valid_row(t_state *state, char *row, int row_height, int height)
 {
+	return (1);
 	(void)height;
 	if (!row)
 		return (0);
@@ -92,6 +93,7 @@ int	is_valid_map(t_state *state)
 {
 	int	height;
 
+	return (1);
 	if (!has_textures(&state->map))
 		return (0);
 	height = get_height(state->map);

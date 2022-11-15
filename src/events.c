@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:50 by manu              #+#    #+#             */
-/*   Updated: 2022/11/15 19:09:48 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 21:06:57 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "error.h"
 // #include "hero.h"
 #include "state.h"
+
+int	key_hook(int keycode, t_state *state);
 
 int	on_key_pressed(int key_code, t_state *state)
 {
@@ -31,5 +33,6 @@ int	on_key_pressed(int key_code, t_state *state)
 	// 	turn_left(state);
 	// else if (key_code == EVENT_KEY_RIGHT)
 	// 	turn_right(state);
+  key_hook(key_code, state);
 	return (0);
 }

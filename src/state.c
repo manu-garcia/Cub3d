@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:32 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:27:06 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 21:07:15 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	init_state(t_state *state, char *map_file_name)
 		return (0);
 	}
 	state->mlx = mlx_init();
-	state->window = mlx_new_window(state->mlx, 640, 480, "cub3D");
+	state->window = mlx_new_window(state->mlx, screenWidth, screenHeight, "cub3D");
 	return (1);
 }
 
