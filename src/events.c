@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:50 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:24:53 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 19:09:48 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,9 @@ int	on_key_pressed(int key_code, t_state *state)
 	// 	hero_move_up(state);
 	// else if (key_code == EVENT_KEY_S)
 	// 	hero_move_down(state);
+	// else if (key_code == EVENT_KEY_LEFT)
+	// 	turn_left(state);
+	// else if (key_code == EVENT_KEY_RIGHT)
+	// 	turn_right(state);
 	return (0);
 }

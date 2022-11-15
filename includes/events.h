@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:23:30 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:23:33 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 19:09:31 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ enum {
 	EVENT_KEY_A = 0,
 	EVENT_KEY_S = 1,
 	EVENT_KEY_D = 2,
+	EVENT_KEY_LEFT = 123,
+	EVENT_KEY_RIGHT = 124,
 	EVENT_ON_DESTROY = 17,
 };
 

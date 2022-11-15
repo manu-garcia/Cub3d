@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:15 by manu              #+#    #+#             */
-/*   Updated: 2022/11/14 20:38:47 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 19:13:44 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	get_height(t_map map)
 
 static int	is_valid_wall(char *row)
 {
+	// TODO: Reactivate that for proper validation.
+	return (1);
 	int	col;
 
 	col = 0;
@@ -62,12 +64,13 @@ static int	is_valid_wall(char *row)
 
 static int	is_valid_row(t_state *state, char *row, int row_height, int height)
 {
+	(void)height;
 	if (!row)
 		return (0);
 	if ((int) ft_strlen(row) < 3)
 		return (0);
-	if (row[0] != TILE_WALL || row[ft_strlen(row) - 1] != TILE_WALL)
-		return (0);
+	// if (row[0] != TILE_WALL || row[ft_strlen(row) - 1] != TILE_WALL)
+	// 	return (0);
 	if ((row_height == 0 || row_height == height) && !is_valid_wall(row))
 		return (0);
 	state->map.n_players += count_number_tiles(row, TILE_PLAYER_N);

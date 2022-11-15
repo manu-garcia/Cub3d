@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:24 by manu              #+#    #+#             */
-/*   Updated: 2022/11/14 20:39:03 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/15 19:11:26 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,33 +121,10 @@ static int	is_first_grid_line(char *line)
 	return (is_first);
 }
 
-static char	*sanitize_map_line(char *line)
-{
-	char	*aux;
-	char	*sanitized;
-
-	if (!ft_strlen(line))
-		return (NULL);
-	sanitized = ft_strdup(line);
-	aux = sanitized;
-	while (line && *line)
-	{
-		if (*line != ' ')
-		{
-			*aux = *line;
-			aux++;
-		}
-		line++;
-	}
-	*aux = '\0';
-	return (sanitized);
-}
-
 static char	**get_map_grid(char **lines)
 {
 	int		i;
 	char	**grid;
-	char	*aux;
 
 	grid = NULL;
 	i = 0;
@@ -155,12 +132,7 @@ static char	**get_map_grid(char **lines)
 		i++;
 	while (lines && lines[i])
 	{
-		aux = sanitize_map_line(lines[i]);
-		if (aux)
-		{
-			grid = add_str_to_array(grid, aux);
-			free(aux);
-		}
+		grid = add_str_to_array(grid, lines[i]);
 		i++;
 	}
 	return (grid);
