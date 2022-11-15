@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:05 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:24:07 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/14 20:37:50 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,14 @@ typedef struct s_map
 	char		**grid;
 	int			width;
 	int			height;
-	int			n_tiles_exit;
-	int			n_tiles_collectible;
 	int			n_players;
+	char		*texture_no_path;
+	char		*texture_so_path;
+	char		*texture_we_path;
+	char		*texture_ea_path;
+	// TODO: f & c to RGB colors
+	char		*f;
+	char		*c;
 }	t_map;
 
 typedef struct s_state

@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:15 by manu              #+#    #+#             */
-/*   Updated: 2022/11/10 22:25:17 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/14 20:38:47 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,24 @@ static int	is_valid_row(t_state *state, char *row, int row_height, int height)
 {
 	if (!row)
 		return (0);
-	if ((int) ft_strlen(row) != state->map.width)
+	if ((int) ft_strlen(row) < 3)
 		return (0);
-	if (row[0] != TILE_WALL || row[state->map.width - 1] != TILE_WALL)
+	if (row[0] != TILE_WALL || row[ft_strlen(row) - 1] != TILE_WALL)
 		return (0);
 	if ((row_height == 0 || row_height == height) && !is_valid_wall(row))
 		return (0);
-	state->map.n_players += count_number_tiles(row, TILE_PLAYER);
-	state->map.n_tiles_collectible += count_number_tiles(row, TILE_COLLECTIBLE);
-	state->map.n_tiles_exit += count_number_tiles(row, TILE_EXIT);
+	state->map.n_players += count_number_tiles(row, TILE_PLAYER_N);
+	state->map.n_players += count_number_tiles(row, TILE_PLAYER_S);
+	state->map.n_players += count_number_tiles(row, TILE_PLAYER_E);
+	state->map.n_players += count_number_tiles(row, TILE_PLAYER_W);
+	return (1);
+}
+
+static int	has_textures(t_map *map)
+{
+	if (!map || !map->texture_no_path || !map->texture_so_path
+		|| !map->texture_we_path || !map->texture_ea_path)
+		return (0);
 	return (1);
 }
 
@@ -80,8 +89,10 @@ int	is_valid_map(t_state *state)
 {
 	int	height;
 
+	if (!has_textures(&state->map))
+		return (0);
 	height = get_height(state->map);
-	state->map.width = ft_strlen((state->map.grid)[0]);
+	// state->map.width = ft_strlen((state->map.grid)[0]);
 	state->map.height = 0;
 	while (state->map.grid[state->map.height])
 	{
@@ -90,10 +101,9 @@ int	is_valid_map(t_state *state)
 			return (0);
 		state->map.height++;
 	}
-	if (state->map.width < 3 || state->map.height < 3)
-		return (0);
-	if (state->map.n_players != 1 || state->map.n_tiles_collectible < 0
-		|| state->map.n_tiles_exit != 1)
+	// if (state->map.width < 3 || state->map.height < 3)
+	// 	return (0);
+	if (state->map.n_players != 1)
 	{
 		return (0);
 	}

@@ -5,6 +5,7 @@ SRC_DIR				=	src
 INCLUDES_DIR		= 	includes
 
 SOURCES				= 	$(SRC_DIR)/array.c \
+						$(SRC_DIR)/array_display.c \
 						$(SRC_DIR)/check_extension.c \
 						$(SRC_DIR)/error.c \
 						$(SRC_DIR)/events.c \
