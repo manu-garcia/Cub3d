@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:23:55 by manu              #+#    #+#             */
-/*   Updated: 2022/11/14 20:37:23 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/16 20:18:10 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include "state.h"
 
 typedef enum e_tile {
-	TILE_EMPTY = '0',
+	TILE_FLOOR = '0',
 	TILE_WALL = '1',
+	TILE_EMPTY = ' ',
 	TILE_PLAYER_N = 'N',
 	TILE_PLAYER_S = 'S',
 	TILE_PLAYER_E = 'E',

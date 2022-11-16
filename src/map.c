@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:24 by manu              #+#    #+#             */
-/*   Updated: 2022/11/15 19:11:26 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/16 20:15:53 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,24 @@ static char	*get_map_value(char **lines, char *key)
 	return (value);
 }
 
+static int	is_valid_map_char(char c)
+{
+	if (c == TILE_FLOOR
+		|| c == TILE_WALL
+		|| c == TILE_EMPTY
+		|| c == TILE_PLAYER_N
+		|| c == TILE_PLAYER_S
+		|| c == TILE_PLAYER_E
+		|| c == TILE_PLAYER_W)
+		return (1);
+	return (0);
+}
+
 static int	is_first_grid_line(char *line)
 {
 	int		is_first;
 	char	*aux;
 
-	line = ft_strtrim(line, " ");
-	if (!line)
-		return (0);
 	if (!ft_strlen(line))
 	{
 		free(line);
@@ -109,15 +119,13 @@ static int	is_first_grid_line(char *line)
 	aux = line;
 	while (aux && *aux)
 	{
-		if (*aux != TILE_WALL && *aux != ' ')
+		if (!is_valid_map_char(*aux))
 		{
 			is_first = 0;
 			break ;
 		}
 		aux++;
 	}
-	if (line)
-		free(line);
 	return (is_first);
 }
 

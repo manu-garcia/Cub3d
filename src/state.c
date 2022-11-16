@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:32 by manu              #+#    #+#             */
-/*   Updated: 2022/11/15 21:07:15 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/16 19:51:51 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,10 @@
 #include <stdlib.h>
 
 #include "state.h"
-// #include "image.h"
-// #include "load.h"
 #include "libft.h"
 #include "map.h"
 #include "map_validation.h"
-// #include "load.h"
-// #include "hero.h"
-// #include "position.h"
 #include "ft_printf.h"
-// #include "free.h"
 
 int	init_state(t_state *state, char *map_file_name)
 {
@@ -35,7 +29,8 @@ int	init_state(t_state *state, char *map_file_name)
 		return (0);
 	}
 	state->mlx = mlx_init();
-	state->window = mlx_new_window(state->mlx, screenWidth, screenHeight, "cub3D");
+	state->window = mlx_new_window(state->mlx, screenWidth, screenHeight,
+			"cub3D");
 	return (1);
 }
 
@@ -46,8 +41,6 @@ int	init_state(t_state *state, char *map_file_name)
  */
 int	free_state(t_state *state)
 {
-	// TODO: Free images before anything else to avoid crashes!!!
-	// free_all_images(state);
 	if (state->mlx && state->window)
 	{
 		mlx_destroy_window(state->mlx, state->window);

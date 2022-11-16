@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:15 by manu              #+#    #+#             */
-/*   Updated: 2022/11/15 21:07:12 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/16 20:20:46 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,43 +36,21 @@ static int	count_number_tiles(char *row, t_tile tile)
 	return (n_tiles);
 }
 
-static int	get_height(t_map map)
+static int	get_height(t_map *map)
 {
 	int	height;
 
 	height = 0;
-	while (map.grid[height])
+	while (map->grid[height])
 		height++;
 	return (height);
 }
 
-static int	is_valid_wall(char *row)
+static int	is_valid_row(t_state *state, char *row)
 {
-	// TODO: Reactivate that for proper validation.
-	return (1);
-	int	col;
-
-	col = 0;
-	while (row[col])
-	{
-		if (row[col] != TILE_WALL)
-			return (0);
-		col++;
-	}
-	return (1);
-}
-
-static int	is_valid_row(t_state *state, char *row, int row_height, int height)
-{
-	return (1);
-	(void)height;
 	if (!row)
 		return (0);
 	if ((int) ft_strlen(row) < 3)
-		return (0);
-	// if (row[0] != TILE_WALL || row[ft_strlen(row) - 1] != TILE_WALL)
-	// 	return (0);
-	if ((row_height == 0 || row_height == height) && !is_valid_wall(row))
 		return (0);
 	state->map.n_players += count_number_tiles(row, TILE_PLAYER_N);
 	state->map.n_players += count_number_tiles(row, TILE_PLAYER_S);
@@ -93,16 +71,14 @@ int	is_valid_map(t_state *state)
 {
 	int	height;
 
-	return (1);
 	if (!has_textures(&state->map))
 		return (0);
-	height = get_height(state->map);
+	height = get_height(&state->map);
 	// state->map.width = ft_strlen((state->map.grid)[0]);
 	state->map.height = 0;
 	while (state->map.grid[state->map.height])
 	{
-		if (!is_valid_row(state, state->map.grid[state->map.height],
-				state->map.height, height))
+		if (!is_valid_row(state, state->map.grid[state->map.height]))
 			return (0);
 		state->map.height++;
 	}
