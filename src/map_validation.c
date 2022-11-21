@@ -6,19 +6,20 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:15 by manu              #+#    #+#             */
-/*   Updated: 2022/11/16 20:20:46 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/21 20:59:01 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdlib.h>
 
-#include "libft.h"
+#include "error.h"
 #include "ft_printf.h"
 #include "get_next_line_bonus.h"
-#include "state.h"
-#include "error.h"
+#include "libft.h"
 #include "map.h"
+#include "map_tile.h"
+#include "state.h"
 
 static int	count_number_tiles(char *row, t_tile tile)
 {
@@ -34,16 +35,6 @@ static int	count_number_tiles(char *row, t_tile tile)
 		col++;
 	}
 	return (n_tiles);
-}
-
-static int	get_height(t_map *map)
-{
-	int	height;
-
-	height = 0;
-	while (map->grid[height])
-		height++;
-	return (height);
 }
 
 static int	is_valid_row(t_state *state, char *row)
@@ -67,26 +58,65 @@ static int	has_textures(t_map *map)
 	return (1);
 }
 
+int	is_valid_surrounded_tile(t_map *map, int x, int y)
+{
+	t_tile	tile;
+
+	tile = get_tile_at(map, x, y);
+	if (tile != TILE_FLOOR)
+		return (1);
+	if (x > 0 && get_tile_at(map, x - 1, y) == TILE_EMPTY)
+		return (0);
+	if (x < (map->width - 1)
+		&& get_tile_at(map, x + 1, y) == TILE_EMPTY)
+		return (0);
+	if (y > 0 && get_tile_at(map, x, y - 1) == TILE_EMPTY)
+		return (0);
+	if (y < (map->height - 1)
+		&& get_tile_at(map, x, y + 1) == TILE_EMPTY)
+		return (0);
+	return (1);
+}
+
+static int	is_walled_map(t_map *map)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	x = 0;
+	while (y < map->height)
+	{
+		while (x < map->width)
+		{
+			if (!is_valid_surrounded_tile(map, x, y))
+				return (0);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (1);
+}
+
 int	is_valid_map(t_state *state)
 {
-	int	height;
+	int	i;
 
+	i = 0;
 	if (!has_textures(&state->map))
 		return (0);
-	height = get_height(&state->map);
-	// state->map.width = ft_strlen((state->map.grid)[0]);
-	state->map.height = 0;
-	while (state->map.grid[state->map.height])
+	while (state->map.grid[i])
 	{
-		if (!is_valid_row(state, state->map.grid[state->map.height]))
+		if (!is_valid_row(state, state->map.grid[i]))
 			return (0);
-		state->map.height++;
+		i++;
 	}
+	if (!is_walled_map(&state->map))
+		return (0);
 	// if (state->map.width < 3 || state->map.height < 3)
 	// 	return (0);
 	if (state->map.n_players != 1)
-	{
 		return (0);
-	}
 	return (1);
 }

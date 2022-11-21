@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:24 by manu              #+#    #+#             */
-/*   Updated: 2022/11/16 20:15:53 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/21 20:59:51 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 #include "ft_printf.h"
 #include "get_next_line_bonus.h"
 #include "map.h"
+#include "map_tile.h"
 #include "libft.h"
 #include "state.h"
+#include "str.h"
 
 static char	*load_map_file(t_state *state, int fd)
 {
@@ -92,19 +94,6 @@ static char	*get_map_value(char **lines, char *key)
 	return (value);
 }
 
-static int	is_valid_map_char(char c)
-{
-	if (c == TILE_FLOOR
-		|| c == TILE_WALL
-		|| c == TILE_EMPTY
-		|| c == TILE_PLAYER_N
-		|| c == TILE_PLAYER_S
-		|| c == TILE_PLAYER_E
-		|| c == TILE_PLAYER_W)
-		return (1);
-	return (0);
-}
-
 static int	is_first_grid_line(char *line)
 {
 	int		is_first;
@@ -119,7 +108,7 @@ static int	is_first_grid_line(char *line)
 	aux = line;
 	while (aux && *aux)
 	{
-		if (!is_valid_map_char(*aux))
+		if (!is_valid_tile_type(*aux))
 		{
 			is_first = 0;
 			break ;
@@ -158,6 +147,55 @@ static void	map_display(t_map *map)
 	array_display(map->grid);
 }
 
+static int	get_largest_map_line(char **grid)
+{
+	int	width;
+	int	i;
+
+	width = 0;
+	i = 0;
+	while (grid && grid[i])
+	{
+		if ((int)ft_strlen(grid[i]) > width)
+			width = ft_strlen(grid[i]);
+		i++;
+	}
+	return (width);
+}
+
+static char	**unify_grid_width(char **grid, int width)
+{
+	char	**unified;
+	char	*aux;
+	int		i;
+
+	unified = NULL;
+	i = 0;
+	while (grid && grid[i])
+	{
+		if ((int) ft_strlen(grid[i]) < width)
+		{
+			aux = str_span_end(grid[i], width, ' ');
+			unified = add_str_to_array(unified, aux);
+			free(aux);
+		}
+		else
+		{
+			unified = add_str_to_array(unified, grid[i]);
+		}
+		i++;
+	}
+	free_array(grid);
+	return (unified);
+}
+
+static void	set_map_dimensions(t_map *map)
+{
+	map->height = count_str_in_array(map->grid);
+	map->width = get_largest_map_line(map->grid);
+	map->grid = unify_grid_width(map->grid, map->width);
+}
+
 static void	load_map_sections(t_state *state, char *str_map)
 {
 	char	**lines;
@@ -170,6 +208,7 @@ static void	load_map_sections(t_state *state, char *str_map)
 	state->map.f = get_map_value(lines, "F ");
 	state->map.c = get_map_value(lines, "C ");
 	state->map.grid = get_map_grid(lines);
+	set_map_dimensions(&state->map);
 	map_display(&state->map);
 	free_array(lines);
 }
