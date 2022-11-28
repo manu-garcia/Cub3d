@@ -6,49 +6,13 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:15 by manu              #+#    #+#             */
-/*   Updated: 2022/11/21 20:59:01 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/28 19:17:38 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-
-#include "error.h"
-#include "ft_printf.h"
-#include "get_next_line_bonus.h"
-#include "libft.h"
 #include "map.h"
+#include "map_row.h"
 #include "map_tile.h"
-#include "state.h"
-
-static int	count_number_tiles(char *row, t_tile tile)
-{
-	int	col;
-	int	n_tiles;
-
-	col = 0;
-	n_tiles = 0;
-	while (row[col])
-	{
-		if ((t_tile) row[col] == tile)
-			n_tiles++;
-		col++;
-	}
-	return (n_tiles);
-}
-
-static int	is_valid_row(t_state *state, char *row)
-{
-	if (!row)
-		return (0);
-	if ((int) ft_strlen(row) < 3)
-		return (0);
-	state->map.n_players += count_number_tiles(row, TILE_PLAYER_N);
-	state->map.n_players += count_number_tiles(row, TILE_PLAYER_S);
-	state->map.n_players += count_number_tiles(row, TILE_PLAYER_E);
-	state->map.n_players += count_number_tiles(row, TILE_PLAYER_W);
-	return (1);
-}
 
 static int	has_textures(t_map *map)
 {
@@ -108,14 +72,12 @@ int	is_valid_map(t_state *state)
 		return (0);
 	while (state->map.grid[i])
 	{
-		if (!is_valid_row(state, state->map.grid[i]))
+		if (!is_valid_row(&state->map, state->map.grid[i]))
 			return (0);
 		i++;
 	}
 	if (!is_walled_map(&state->map))
 		return (0);
-	// if (state->map.width < 3 || state->map.height < 3)
-	// 	return (0);
 	if (state->map.n_players != 1)
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:23:55 by manu              #+#    #+#             */
-/*   Updated: 2022/11/16 20:18:10 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/28 19:16:34 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,14 @@ typedef enum e_tile {
 	TILE_PLAYER_W = 'W',
 }	t_tile;
 
+char	*get_map_value(char **lines, char *key);
+char	**get_map_grid(char **lines);
+void	auto_set_map_dimensions(t_map *map);
+
+
+
 void	load_map(t_state *state, char *file_name);
 void	free_map(t_state *state);
-void	set_tile(t_state *state, t_tile tile, int x, int y);
+void	map_display(t_map *map);
 
 #endif

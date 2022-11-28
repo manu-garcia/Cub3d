@@ -13,6 +13,9 @@ SOURCES				= 	$(SRC_DIR)/array.c \
 						$(SRC_DIR)/frame.c \
 						$(SRC_DIR)/ft_malloc.c \
 						$(SRC_DIR)/map.c \
+						$(SRC_DIR)/map_line.c \
+						$(SRC_DIR)/map_loading.c \
+						$(SRC_DIR)/map_row.c \
 						$(SRC_DIR)/map_tile.c \
 						$(SRC_DIR)/map_validation.c \
 						$(SRC_DIR)/state.c \

@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 12:43:16 by manu              #+#    #+#             */
-/*   Updated: 2022/11/21 20:58:52 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/28 19:17:26 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,9 @@ t_tile	get_tile_at(t_map *map, int x, int y)
 	if (y < 0 || y > map->height)
 		printf("get_tile_at y axis error (%d)\n", y);
 	return (map->grid[y][x]);
+}
+
+void	set_tile(t_map *map, t_tile tile, int x, int y)
+{
+	map->grid[y][x] = tile;
 }
