@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:16:57 by manu              #+#    #+#             */
-/*   Updated: 2022/11/28 19:17:00 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/29 19:43:17 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 
 #include "array.h"
+#include "color.h"
 #include "error.h"
 #include "ft_printf.h"
 #include "get_next_line_bonus.h"
@@ -61,6 +62,8 @@ static void	load_map_sections(t_state *state, char *str_map)
 	state->map.texture_ea_path = get_map_value(lines, "EA ");
 	state->map.f = get_map_value(lines, "F ");
 	state->map.c = get_map_value(lines, "C ");
+	state->map.floor_color = string_to_color(state->map.f);
+	state->map.ceiling_color = string_to_color(state->map.c);
 	state->map.grid = get_map_grid(lines);
 	auto_set_map_dimensions(&state->map);
 	map_display(&state->map);

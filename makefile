@@ -8,6 +8,7 @@ SOURCES				= 	$(SRC_DIR)/array.c \
 						$(SRC_DIR)/array_display.c \
 						$(SRC_DIR)/main.c \
 						$(SRC_DIR)/check_extension.c \
+						$(SRC_DIR)/color.c \
 						$(SRC_DIR)/error.c \
 						$(SRC_DIR)/events.c \
 						$(SRC_DIR)/frame.c \

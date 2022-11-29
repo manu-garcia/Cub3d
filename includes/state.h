@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:05 by manu              #+#    #+#             */
-/*   Updated: 2022/11/15 21:02:31 by manu             ###   ########.fr       */
+/*   Updated: 2022/11/29 19:42:49 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ typedef struct s_map
 	char		*texture_so_path;
 	char		*texture_we_path;
 	char		*texture_ea_path;
-	// TODO: f & c to RGB colors
 	char		*f;
 	char		*c;
+	int			floor_color;
+	int			ceiling_color;
 }	t_map;
 
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
