@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:05 by manu              #+#    #+#             */
-/*   Updated: 2022/11/29 19:42:49 by manu             ###   ########.fr       */
+/*   Updated: 2022/12/01 19:56:34 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,10 @@ typedef struct s_state
 	t_map		map;
 	void		*mlx;
 	void		*window;
-	t_animation	hero;
-	t_animation	monster;
-	int			monster_last_axis_move;
-	t_image		floor;
-	t_image		exit;
-	t_image		wall;
-	t_image		collectible;
-	int			n_hero_moves;
-	int			n_collectibles;
+	t_image		wall_no;
+	t_image		wall_so;
+	t_image		wall_we;
+	t_image		wall_ea;
 	int			time;
 	t_data		img;
 }	t_state;

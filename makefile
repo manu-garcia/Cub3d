@@ -13,6 +13,7 @@ SOURCES				= 	$(SRC_DIR)/array.c \
 						$(SRC_DIR)/events.c \
 						$(SRC_DIR)/frame.c \
 						$(SRC_DIR)/ft_malloc.c \
+						$(SRC_DIR)/image.c \
 						$(SRC_DIR)/map.c \
 						$(SRC_DIR)/map_line.c \
 						$(SRC_DIR)/map_loading.c \

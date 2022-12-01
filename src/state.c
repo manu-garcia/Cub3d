@@ -6,18 +6,19 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:32 by manu              #+#    #+#             */
-/*   Updated: 2022/11/16 19:51:51 by manu             ###   ########.fr       */
+/*   Updated: 2022/12/01 19:57:35 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
 
-#include "state.h"
+#include "ft_printf.h"
+#include "image.h"
 #include "libft.h"
 #include "map.h"
 #include "map_validation.h"
-#include "ft_printf.h"
+#include "state.h"
 
 int	init_state(t_state *state, char *map_file_name)
 {
@@ -41,6 +42,7 @@ int	init_state(t_state *state, char *map_file_name)
  */
 int	free_state(t_state *state)
 {
+	free_all_images(state);
 	if (state->mlx && state->window)
 	{
 		mlx_destroy_window(state->mlx, state->window);
