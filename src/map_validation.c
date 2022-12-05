@@ -6,11 +6,12 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:15 by manu              #+#    #+#             */
-/*   Updated: 2022/11/28 19:17:38 by manu             ###   ########.fr       */
+/*   Updated: 2022/12/05 20:04:56 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include "map_player.h"
 #include "map_row.h"
 #include "map_tile.h"
 
@@ -27,7 +28,7 @@ int	is_valid_surrounded_tile(t_map *map, int x, int y)
 	t_tile	tile;
 
 	tile = get_tile_at(map, x, y);
-	if (tile != TILE_FLOOR)
+	if (tile != TILE_FLOOR && !is_valid_player_tile(tile))
 		return (1);
 	if (x > 0 && get_tile_at(map, x - 1, y) == TILE_EMPTY)
 		return (0);
@@ -79,6 +80,8 @@ int	is_valid_map(t_state *state)
 	if (!is_walled_map(&state->map))
 		return (0);
 	if (state->map.n_players != 1)
+		return (0);
+	if (!is_valid_player(state))
 		return (0);
 	return (1);
 }

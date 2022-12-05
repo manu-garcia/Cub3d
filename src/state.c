@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:25:32 by manu              #+#    #+#             */
-/*   Updated: 2022/12/01 19:57:35 by manu             ###   ########.fr       */
+/*   Updated: 2022/12/05 20:05:04 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 #include "map.h"
 #include "map_validation.h"
 #include "state.h"
+#include "world.h"
 
 int	init_state(t_state *state, char *map_file_name)
 {
 	ft_memset(state, 0, sizeof(t_state));
 	load_map(state, map_file_name);
-	if (!is_valid_map(state))
+	if (!is_valid_map(state) || !world_init(state))
 	{
+		map_display(&state->map);
 		ft_printf("Error\nThe content of the map is invalid\n");
 		return (0);
 	}

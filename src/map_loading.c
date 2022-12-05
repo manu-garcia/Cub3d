@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:16:57 by manu              #+#    #+#             */
-/*   Updated: 2022/11/29 19:43:17 by manu             ###   ########.fr       */
+/*   Updated: 2022/12/05 20:04:32 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	load_map_sections(t_state *state, char *str_map)
 	state->map.ceiling_color = string_to_color(state->map.c);
 	state->map.grid = get_map_grid(lines);
 	auto_set_map_dimensions(&state->map);
-	map_display(&state->map);
 	free_array(lines);
 }
 

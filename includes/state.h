@@ -6,7 +6,7 @@
 /*   By: manu <manu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:24:05 by manu              #+#    #+#             */
-/*   Updated: 2022/12/01 19:56:34 by manu             ###   ########.fr       */
+/*   Updated: 2022/12/05 20:04:08 by manu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 
 # define screenWidth 1920
 # define screenHeight 1080
+
+typedef struct s_vector2d
+{
+	int	x;
+	int	y;
+}	t_vector2d;
 
 typedef struct s_image
 {
@@ -85,6 +91,8 @@ typedef struct s_state
 	t_image		wall_ea;
 	int			time;
 	t_data		img;
+	t_vector2d	player_tile_pos;
+	t_vector2d	player_dir;
 }	t_state;
 
 int	init_state(t_state *state, char *map_file_name);
